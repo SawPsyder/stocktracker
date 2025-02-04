@@ -43,14 +43,6 @@ def init():
         )
         sample_check.add_rule(
             RuleWebsite(
-                "Caseking DE",
-                "https://www.caseking.de/msi-geforce-rtx-5090-32g-ventus-3x-oc-32768-mb-gddr7/GCMC-403.html",
-                "Auf Lager",
-                "#js-product-availability-container"
-            )
-        )
-        sample_check.add_rule(
-            RuleWebsite(
                 "Amazon DE",
                 "https://www.amazon.de/dp/B0DT6S77JK",
                 "Auf Lager",

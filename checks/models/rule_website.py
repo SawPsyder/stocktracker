@@ -1,5 +1,6 @@
 import os
 import datetime
+import time
 from checks.models.rule import Rule
 
 driver = None
@@ -21,8 +22,7 @@ def init_webdriver():
     options = Options()
     options.headless = True
     options.add_argument(f'--lang={language}')
-    options.add_argument('--headless')
-    options.add_argument('--disable-gpu')
+    # options.add_argument('--headless')
     options.add_argument('--log-level=3')
     service = Service(ChromeDriverManager().install())
     driver = webdriver.Chrome(service=service, options=options)
@@ -55,23 +55,10 @@ class RuleWebsite(Rule):
     def check(self) -> bool|str:
         result = False
 
-        def get_website_content_httpx(url: str):
-            import httpx
-
-            language = os.popen('powershell.exe -Command "Get-UICulture | Select-Object -ExpandProperty Name"').read().strip() or 'en-US'
-            headers = {
-                'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.3',
-                'Accept-Language': language + ';q=0.9,en;q=0.8',
-                'Connection': 'keep-alive',
-                'Upgrade-Insecure-Requests': '1',
-            }
-            with httpx.Client(headers=headers) as client:
-                response = client.get(url)
-                return response.text
-
         def get_website_content_selenium(url: str):
             print(f"\nChecking website with Selenium:\n{url}")
             get_driver().get(url)
+            time.sleep(1)
             return get_driver().page_source
 
         content = get_website_content_selenium(self.url)

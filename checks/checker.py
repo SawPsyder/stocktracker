@@ -17,27 +17,25 @@ class Checker:
             timeout=10
         )
 
+        from playsound3 import playsound
+        playsound("notification.mp3")
+
     def add_check(self, check: Check):
         self.checks.append(check)
 
     def run(self):
-        message = ""
-
         for check in self.checks:
             check.check(self)
             self.print_status()
             if check.last_status is not None and check.last_status != check.status and check.status == check.IN_STOCK:
-                message += f"\n- {check.name}"
-
-        if message:
-            self.send_notification(message)
+                self.send_notification(check.name)
 
     def print_status(self):
         os.system('cls' if os.name == 'nt' else 'clear')
         print("=" * (3 + 30 + 30 + 20 + 20))
         print(f"{'Name':<30} {'Last Check':<30} {'Previous Status':<20} {'Current Status':<20}")
         for check in self.checks:
-            print("-"*(3+30+30+20+20))
+            print("-" * (3 + 30 + 30 + 20 + 20))
             if check.last_status != "None" and check.last_status != check.status:
                 print(
                     f"{check.name[:28]:<30} {check.last_run[:28]:<30} {check.last_status[:18]:<20} \033[91m{check.status[:18]:<20}\033[0m"
