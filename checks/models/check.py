@@ -31,7 +31,7 @@ class Check:
                 result = True
             self._last_run = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
             self._status = result
-            checker.print_status()
+            checker.print_status(self.name)
 
         return self.status
 

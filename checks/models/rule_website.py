@@ -72,11 +72,14 @@ def close_webdriver():
 
 def get_driver():
     global driver, driver_lifetime, driver_lifetime_default
-    print(f"Driver lifetime: {driver_lifetime}/{driver_lifetime_default}")
     if driver_lifetime <= 0:
         print("\nWebdriver lifetime exceeded, resetting driver...")
-        driver.delete_all_cookies()
         driver.get("about:blank")
+        driver.delete_all_cookies()
+        driver_lifetime = driver_lifetime_default
+        time.sleep(1)
+        print("Driver reset completed")
+    print(f"Driver lifetime: {driver_lifetime}/{driver_lifetime_default}")
     driver_lifetime -= 1
     return driver
 

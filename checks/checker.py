@@ -25,17 +25,20 @@ class Checker:
 
     def run(self):
         for check in self.checks:
+            self.print_status(check.name)
             check.check(self)
             self.print_status()
             if check.last_status is not None and check.last_status != check.status and check.status == check.IN_STOCK:
                 self.send_notification(check.name)
 
-    def print_status(self):
+    def print_status(self, highlight_name: str = None):
         os.system('cls' if os.name == 'nt' else 'clear')
         print("=" * (3 + 30 + 30 + 20 + 20))
         print(f"{'Name':<30} {'Last Check':<30} {'Previous Status':<20} {'Current Status':<20}")
         for check in self.checks:
             print("-" * (3 + 30 + 30 + 20 + 20))
+            if highlight_name and check.name == highlight_name:
+                print("\033[1m", end="")
             if check.last_status != "None" and check.last_status != check.status:
                 print(
                     f"{check.name[:28]:<30} {check.last_run[:28]:<30} {check.last_status[:18]:<20} \033[91m{check.status[:18]:<20}\033[0m"
@@ -55,6 +58,8 @@ class Checker:
                     )
                 if rule.status == rule.IN_STOCK and rule.information:
                     print(f"    \033[92m{rule.information}\033[0m")
+            if highlight_name and check.name == highlight_name:
+                print("\033[0m", end="")
         print("=" * (3 + 30 + 30 + 20 + 20))
 
     @property
