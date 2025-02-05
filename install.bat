@@ -2,7 +2,9 @@
 
 python --version >nul 2>&1 || (
     echo Python is not installed.
-    echo Please download and install Python from https://www.python.org/downloads/ first
+    echo Please install it first. You can use the Microsoft Store for that.
+    call python
+    pause
     exit /b 1
 )
 
