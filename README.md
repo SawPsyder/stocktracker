@@ -3,11 +3,12 @@ Small python stock tracker experiment.
 Uses selenium to get stock data from configured webshop urls.
 
 ## Installation
-1. Install python on your system.
-2. Start `install.bat` once to let it install all dependencies in a virtual environment.
-3. Start `run.bat` once to generate the `config.json` file.
-4. Edit the config file es specified below.
-5. Start `run.bat` to run the program.
+1. Install python on your system, Im using 12.8.
+2. Install at least Chrome v133 on your system. If not the latest version, the stealth driver might not work and a fallback to the normal driver is used.
+3. Start `install.bat` once to let it install all dependencies in a virtual environment.
+4. Start `run.bat` once to generate the `config.json` file.
+5. Edit the config file es specified below.
+6. Start `run.bat` to run the program.
 
 ## Configuration
 The sample configuration file `config.json` is - surprise - formatted in JSON.
